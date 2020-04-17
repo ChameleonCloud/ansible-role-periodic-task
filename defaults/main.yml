@@ -1,7 +1,12 @@
 ---
 task_description:
 task_calendar: daily
-task_jitter: 3h
+task_jitter: "{{ task_jitter_defaults[task_calendar] | default('10m') }}"
+
+task_jitter_defaults:
+  hourly: 15m
+  daily: 3h
+  monthly: 12h
 
 prometheus_push_gateway_group: prometheus-push-gateway
 
