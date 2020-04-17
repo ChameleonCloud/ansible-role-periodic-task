@@ -7,7 +7,7 @@ sudo: false
 
 env:
   global:
-    - ROLE_NAME: periodic_task
+    - ROLE_NAME: periodic-task
   matrix:
     - MOLECULE_DISTRO: centos:7
 
