@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Run {{ task_name }}
+
+[Timer]
+OnCalendar={{ task_calendar }}
+RandomizedDelaySec={{ task_jitter }}
+AccuracySec=1s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,12 @@
+---
+task_name:
+task_command:
+task_description:
+task_calendar: daily
+task_jitter: 3h
+
+prometheus_push_gateway_group: prometheus-push-gateway
+
+periodic_task_on_success_install_path: /usr/local/sbin/periodic_task_on_success
+
+systemd_install_path: /usr/lib/systemd/system

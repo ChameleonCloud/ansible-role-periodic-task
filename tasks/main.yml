@@ -1,0 +1,49 @@
+---
+- name: Check for required variables.
+  fail:
+    msg: "Variable '{{ required_var }}' is not defined"
+  when: required_var is not defined
+  loop_control:
+    loop_var: required_var
+  loop:
+    - task_name
+    - task_command
+
+- name: Validate service name.
+  fail:
+    msg: "'{{ task_name }}' is not a valid service name"
+  when: task_name is not match("[A-Za-z0-9\.\-_]+")
+
+- name: Set fact for Prometheus push gateway
+  set_fact:
+    prometheus_push_gateway: "http://{{ groups[prometheus_push_gateway_group][0] }}:9091"
+  when:
+    - prometheus_push_gateway is not defined
+    - prometheus_push_gateway_group is defined
+    - groups[prometheus_push_gateway_group] | length > 0
+
+- name: Install on_success script.
+  template:
+    src: on_success.sh.j2
+    dest: "{{ periodic_task_on_success_install_path }}"
+    mode: "0700"
+
+- name: Install task service definition.
+  template:
+    src: systemd.service.j2
+    dest: "{{ systemd_install_path }}/{{ task_name }}.service"
+  notify:
+    - reload systemd daemon
+
+- name: Install task timer definition.
+  template:
+    src: systemd.timer.j2
+    dest: "{{ systemd_install_path }}/{{ task_name }}.timer"
+  notify:
+    - reload systemd daemon
+
+- name: Enable task timer.
+  service:
+    name: "{{ task_name }}.timer"
+    state: started
+    enabled: True

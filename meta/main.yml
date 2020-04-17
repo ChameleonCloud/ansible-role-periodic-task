@@ -1,0 +1,22 @@
+galaxy_info:
+  role_name: periodic_task
+  author: Jason Anderson
+  description: something
+  company: University of Chicago
+
+  license: MIT
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+  galaxy_tags:
+    - chi-in-a-box
+    - systemd
+    - cron
+
+dependencies: []

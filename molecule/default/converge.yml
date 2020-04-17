@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include chameleon.periodic_task"
+      include_role:
+        name: "chameleon.periodic_task"

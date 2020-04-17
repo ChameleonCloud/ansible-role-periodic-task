@@ -1,0 +1,29 @@
+---
+language: python
+services: docker
+
+# Use the new container infrastructure
+sudo: false
+
+env:
+  global:
+    - ROLE_NAME: periodic_task
+  matrix:
+    - MOLECULE_DISTRO: centos:7
+
+install:
+  # Install test dependencies
+  - pip install molecule yamllint ansible-lint docker
+
+before_script:
+  # Use actual Ansible Galaxy role name for the project directory.
+  - cd ../
+  - mv ansible-role-$ROLE_NAME chameleon.$ROLE_NAME
+  - cd chameleon.$ROLE_NAME
+
+script:
+  # Run tests.
+  - molecule test
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

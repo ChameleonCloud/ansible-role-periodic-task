@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+[Unit]
+{% if task_description is defined %}
+Description={{ task_description }}
+{% endif %}
+
+[Service]
+Type=oneshot
+ExecStart={{ task_command }}
+ExecStartPost={{ task_on_success_script }} %N
