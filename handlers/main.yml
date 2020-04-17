@@ -2,3 +2,8 @@
 - name: reload systemd daemon
   systemd:
     daemon_reload: yes
+
+- name: restart task timer
+  service:
+    name: "{{ task_name }}.timer"
+    state: restarted

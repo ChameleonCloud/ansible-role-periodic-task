@@ -2,6 +2,9 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include chameleon.periodic_task"
+    - name: Include chameleon.periodic-task
       include_role:
-        name: "chameleon.periodic_task"
+        name: chameleon.periodic-task
+      vars:
+        task_name: foo
+        task_command: /bin/echo foo

@@ -2,7 +2,7 @@
 - name: Check for required variables.
   fail:
     msg: "Variable '{{ required_var }}' is not defined"
-  when: required_var is not defined
+  when: lookup('vars', required_var) is not defined
   loop_control:
     loop_var: required_var
   loop:
@@ -20,6 +20,7 @@
   when:
     - prometheus_push_gateway is not defined
     - prometheus_push_gateway_group is defined
+    - prometheus_push_gateway_group in groups
     - groups[prometheus_push_gateway_group] | length > 0
 
 - name: Install on_success script.
@@ -41,6 +42,7 @@
     dest: "{{ systemd_install_path }}/{{ task_name }}.timer"
   notify:
     - reload systemd daemon
+    - restart task timer
 
 - name: Enable task timer.
   service:

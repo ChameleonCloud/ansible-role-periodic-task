@@ -1,6 +1,4 @@
 ---
-task_name:
-task_command:
 task_description:
 task_calendar: daily
 task_jitter: 3h

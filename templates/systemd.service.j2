@@ -1,10 +1,10 @@
 # {{ ansible_managed }}
 [Unit]
-{% if task_description is defined %}
+{% if task_description %}
 Description={{ task_description }}
 {% endif %}
 
 [Service]
 Type=oneshot
 ExecStart={{ task_command }}
-ExecStartPost={{ task_on_success_script }} %N
+ExecStartPost={{ periodic_task_on_success_install_path }} %N
