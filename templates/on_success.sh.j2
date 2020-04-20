@@ -4,9 +4,10 @@
 task_name="$1"
 
 {% if prometheus_push_gateway is defined %}
+echo "Pushing Prometheus metric periodic_task_last_success"
 # Push metric periodic_task_last_success with labels:
 #   {job="periodic_task", name="<name of task>"}
-curl --data-binary @- "{{ prometheus_push_gateway }}/metrics/job/periodic_task/name/$task_name" <<DATA
+curl -sS --data-binary @- "{{ prometheus_push_gateway }}/metrics/job/periodic_task/name/$task_name" <<DATA
 # TYPE periodic_task_last_success gauge
 # HELP periodic_task_last_success The timestamp of the last time this periodic task completed successfully.
 periodic_task_last_success $(date +%s)
