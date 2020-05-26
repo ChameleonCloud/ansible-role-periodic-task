@@ -6,5 +6,21 @@ Description={{ task_description }}
 
 [Service]
 Type=oneshot
+{% if task_command is defined %}
 ExecStart={{ task_command }}
+{% elif task_docker is defined %}
+ExecStart=/bin/docker run --name=%N \
+{% if task_docker.network is defined %}
+                          --net={{ task_docker.network }} \
+{% endif %}
+{% for m in (task_docker.mounts|default([])) %}
+                          --mount type={{ m.type }},src={{ m.src }},dst={{ m.dst }}{% if m.readonly|default(false) %},ro{% endif %} \
+{% endfor %}
+{% for k, v in (task_docker.environment|default({})).items() %}
+                          -e {{ k }}={{ v }} \
+{% endfor %}
+                          {{ task_docker.image }} {% if task_docker.command is defined %}{{ task_docker.command }}{% endif %}
+{% else %}
+# No command defined! Double-check the Role invocation.
+{% endif %}
 ExecStartPost={{ periodic_task_on_success_install_path }} %N

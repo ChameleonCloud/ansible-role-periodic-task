@@ -7,7 +7,13 @@
     loop_var: required_var
   loop:
     - task_name
-    - task_command
+
+- name: Check for required variables.
+  fail:
+    msg: "Either 'task_command' or 'task_docker' must be defined"
+  when:
+    - lookup('vars', 'task_command') is not defined
+    - lookup('vars', 'task_docker') is not defined
 
 - name: Validate service name.
   fail:
