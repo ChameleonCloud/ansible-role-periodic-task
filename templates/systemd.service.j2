@@ -9,7 +9,7 @@ Type=oneshot
 {% if task_command is defined %}
 ExecStart={{ task_command }}
 {% elif task_docker is defined %}
-ExecStart=/bin/docker run --name=%N \
+ExecStart=/bin/docker run --name=%N --rm \
 {% if task_docker.network is defined %}
                           --net={{ task_docker.network }} \
 {% endif %}
