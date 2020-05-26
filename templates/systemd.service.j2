@@ -6,9 +6,7 @@ Description={{ task_description }}
 
 [Service]
 Type=oneshot
-{% if task_command is defined %}
-ExecStart={{ task_command }}
-{% elif task_docker is defined %}
+{% if task_docker is defined %}
 ExecStart=/bin/docker run --name=%N --rm \
 {% if task_docker.network is defined %}
                           --net={{ task_docker.network }} \
@@ -19,8 +17,8 @@ ExecStart=/bin/docker run --name=%N --rm \
 {% for k, v in (task_docker.environment|default({})).items() %}
                           -e {{ k }}={{ v }} \
 {% endfor %}
-                          {{ task_docker.image }} {% if task_docker.command is defined %}{{ task_docker.command }}{% endif %}
+                          {{ task_docker.image }} {% if task_command is defined %}{{ task_command }}{% endif %}
 {% else %}
-# No command defined! Double-check the Role invocation.
+ExecStart={{ task_command }}
 {% endif %}
 ExecStartPost={{ periodic_task_on_success_install_path }} %N
