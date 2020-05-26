@@ -6,9 +6,9 @@ Description={{ task_description }}
 
 [Service]
 Type=oneshot
-{% if task_docker is defined %}
+{% if task_docker is defined and task_docker %}
 ExecStart=/bin/docker run --name=%N --rm \
-{% if task_docker.network is defined %}
+{% if task_docker.network is defined and task_docker.network %}
                           --net={{ task_docker.network }} \
 {% endif %}
 {% for m in (task_docker.mounts|default([])) %}
