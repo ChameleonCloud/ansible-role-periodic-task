@@ -18,6 +18,7 @@ ExecStart=/bin/docker run --name=%N --rm \
                           -e {{ k }}={{ v }} \
 {% endfor %}
                           {{ task_docker.image }} {% if task_command is defined %}{{ task_command }}{% endif %}
+
 {% else %}
 ExecStart={{ task_command }}
 {% endif %}
