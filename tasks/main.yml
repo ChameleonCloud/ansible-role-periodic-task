@@ -22,7 +22,7 @@
 
 - name: Set fact for Prometheus push gateway
   set_fact:
-    prometheus_push_gateway: "http://{{ groups[prometheus_push_gateway_group][0] }}:9091"
+    prometheus_push_gateway: "http://{{ groups[prometheus_push_gateway_group][0] }}:{{ prometheus_push_gateway_port }}"
   when:
     - prometheus_push_gateway is not defined
     - prometheus_push_gateway_group is defined
