@@ -13,4 +13,4 @@ prometheus_push_gateway_port: 9099
 
 periodic_task_on_success_install_path: /usr/local/sbin/periodic_task_on_success
 
-systemd_install_path: /usr/lib/systemd/system
+systemd_install_path: /etc/systemd/system
