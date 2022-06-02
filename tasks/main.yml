@@ -53,5 +53,5 @@
 - name: Enable task timer.
   service:
     name: "{{ task_name }}.timer"
-    state: started
-    enabled: True
+    state: "{% if task_enabled | bool %}started{% else %}stopped{% endif %}"
+    enabled: "{{ task_enabled | bool }}"

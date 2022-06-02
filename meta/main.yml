@@ -1,10 +1,11 @@
 galaxy_info:
   role_name: periodic_task
-  author: Jason Anderson
-  description: something
+  author: Chameleon Team
+  description: |
+    Installs some task that executes on a periodic interval, currently implemented via
+    systemd timers.
   company: University of Chicago
-
-  license: MIT
+  license: Apache 2.0
 
   min_ansible_version: 2.8
 

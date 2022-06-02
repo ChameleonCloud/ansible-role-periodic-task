@@ -1,6 +1,7 @@
 ---
 task_description:
 task_calendar: daily
+task_enabled: yes
 task_jitter: "{{ task_jitter_defaults[task_calendar] | default('10m') }}"
 
 task_jitter_defaults:
