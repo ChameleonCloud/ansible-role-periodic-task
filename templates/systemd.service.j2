@@ -6,6 +6,12 @@ Description={{ task_description }}
 
 [Service]
 Type=oneshot
+{% if task_user is defined and task_user and task_user|length %}
+User={{ task_user }}
+{% endif %}
+{% if task_group is defined and task_group and task_group|length %}
+Group={{ task_group }}
+{% endif %}
 {% if task_docker is defined and task_docker %}
 ExecStart=/bin/docker run --name=%N --rm \
 {% if task_docker.network is defined and task_docker.network %}
