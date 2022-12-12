@@ -9,7 +9,6 @@ Type=oneshot
 {% if task_workdir is defined and task_workdir and task_workdir|length %}
 WorkingDirectory={{ task_workdir }}
 {% endif %}
-
 {% if task_user is defined and task_user and task_user|length %}
 User={{ task_user }}
 {% endif %}
