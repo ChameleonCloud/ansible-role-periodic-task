@@ -32,3 +32,6 @@ ExecStart=/bin/docker run --name=%N --rm \
 ExecStart={{ task_command }}
 {% endif %}
 ExecStartPost={{ periodic_task_on_success_install_path }} %N
+StandardError=journal
+StandardOutput=journal
+StandardInput=null
